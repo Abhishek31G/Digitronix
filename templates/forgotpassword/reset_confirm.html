@@ -1,0 +1,39 @@
+{% extends 'main/basic.html' %}
+{% block body %}
+{% load static %}
+
+<!-- Reset Form Area Start -->
+<div class="contact-area">
+    <div class="container">
+        <div class="contact-wrapper">
+            <div class="row">
+                <div class="col-12">
+                    <div class="contact-form">
+                        <div class="contact-title mb-30">
+                            <h2 class="title">Change Password</h2>
+                        </div>
+                        {% if validlink %}
+                        <form class="contact-form-style" method="post">
+                            {% csrf_token %}
+                            <div class="row" style="display: flex; justify-content: center;">
+                                <div class="col-lg-8 default-form-box mb-20">
+                                    {{form.as_p}}
+                                </div>
+                                <div class="col-lg-8 text-center">   
+                                    <button class="btn btn-primary" type="submit">Send Message</button>
+                                </div>
+                            </div>
+                        </form>
+                        {% else %}
+                        <p class="form-messege" style="display: flex; justify-content: center;">The password reset link was invalid, possibly because it has already been used.</p>
+                        <p class="form-messege" style="display: flex; justify-content: center;">Please request a new password reset.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Reset Form Area End -->
+
+{% endblock %}
