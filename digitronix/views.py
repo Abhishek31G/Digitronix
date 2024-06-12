@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from blog.models import Blogpost
 from store_app.models import *
 from django.db.models import Q
 import razorpay
@@ -50,8 +51,10 @@ def yourorder(request):
 def index(request):
     # wishlist = request.user.wishlist.all()
     product = Product.objects.filter(status = 'Publish')
+    blogpost = Blogpost.objects.all().order_by('-pub_date')[:2]
     context = {
         "product": product,
+        "blogpost": blogpost,
         # "wishlist" : wishlist,
     }
     print(wishlist)
