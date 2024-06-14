@@ -109,6 +109,9 @@ class ContactUs(models.Model):
         return self.email + " -------------  Subject: " + self.subject
 
 class Order(models.Model):
+    STATUS = (('Pending', 'Pending'), ('Order Placed', 'Order Placed'), ('Dispatch', 'Dispatch'), ('On The Way', 'On The Way'),\
+              ('Delivered', 'Delivered'), ('Cancel', 'Cancel'), ('Return', 'Return'))
+    
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     firstname = models.CharField(max_length=255)
     lastname = models.CharField(max_length=255)
@@ -124,6 +127,7 @@ class Order(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     payment_id = models.CharField(max_length=255, null=True, blank=True)
     paid = models.BooleanField(default=False, null=True)
+    order_status = models.CharField(choices=STATUS, max_length=100, null=True, blank=True)
 
     def __str__(self):
         return self.user.username

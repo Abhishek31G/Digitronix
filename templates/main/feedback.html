@@ -1,0 +1,102 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .feedback-container {
+            width: 320px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .feedback-container h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        .opinion img {
+            width: 30px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .category button {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 5px;
+            font-size: 14px;
+        }
+        .category button.active {
+            border-color: #8e8e8e;
+            background-color: #e0e0e0;
+        }
+        .comment textarea {
+            width: calc(100% - 20px);
+            height: 50px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+        .send-button {
+            background-color: #99cc33;
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        .powered-by {
+            font-size: 12px;
+            margin-top: 10px;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="feedback-container">
+        <h1>Your feedback</h1>
+        <p>We would like your feedback to improve our website.</p>
+        <div class="opinion">
+            <p>What is your opinion of this page?</p>
+            <img src="https://img.icons8.com/ios/50/000000/sad.png" alt="Sad">
+            <img src="https://img.icons8.com/ios/50/000000/neutral.png" alt="Neutral" class="active">
+            <img src="https://img.icons8.com/ios/50/000000/happy.png" alt="Happy">
+        </div>
+        <div class="category">
+            <p>Please select your feedback category below.</p>
+            <button>Suggestion</button>
+            <button class="active">Something is not quite right</button>
+            <button>Compliment</button>
+        </div>
+        <div class="comment">
+            <p>Please leave your feedback below:</p>
+            <textarea placeholder="I cannot find the contact page."></textarea>
+        </div>
+        <button class="send-button">Send</button>
+        <div class="powered-by">
+            Powered by <strong>Mopinion</strong>
+        </div>
+    </div>
+</body>
+</html>
+
+

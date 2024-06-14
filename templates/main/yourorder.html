@@ -6,7 +6,8 @@
         <!-- Cart Area Start -->
         <div class="cart-main-area pt-100px pb-100px">
             <div class="container">
-                <h3 class="cart-page-title">Your cart items</h3>
+                <h3 class="cart-page-title">Your Orders</h3>
+                <a class="view"><strong>Note: </strong> Click on "Order Status" of your order to track the order.</a>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                         <form action="#">
@@ -19,6 +20,7 @@
                                             <th>Product Name</th>
                                             <th>Unit Price</th>
                                             <th>Qty</th>
+                                            <th>Order Status</th>
                                             <th>Subtotal</th>
                                             <th rowspan="2">Total<br>With Shipping+Tax</th>
                                         </tr>
@@ -36,6 +38,7 @@
                                                 <input class="cart-plus-minus-box" type="text" name="qtybutton" value="{{i.quantity}}" 
                                                 style="width: 100px; height: 18px; border:none; outline:none; text-align:center;" readonly/>
                                             </td>
+                                            <td class="product-order_status">{{i.order.order_status}}</td>
                                             <td class="product-subtotal">{{i.total}}</td>
                                             <td class="product-total">{{i.order.amount}}</td>
                                         </tr>

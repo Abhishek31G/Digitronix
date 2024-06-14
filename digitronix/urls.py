@@ -16,6 +16,7 @@ urlpatterns = [
     path('search/', views.search, name="Search"),
     path('products/<str:id>', views.product_details, name="ProductDetails"),
     path('contactus/', views.contactUs, name="ContactUs"),
+    path('aboutus/', views.aboutUs, name="AboutUs"),
     path('account/', views.account, name="Account"),
     path('blog/', include('blog.urls')),
 
@@ -35,6 +36,7 @@ urlpatterns = [
     path('cart/checkout/placeorder/', views.placeorder, name='PlaceOrder'),
     path('success/', views.success, name="Success"),
     path('yourorder/', views.yourorder, name="YourOrder"),
+    path('user-order-track/<int:pid>/', views.user_order_track, name="UserOrderTrack"),
 
     # Forgot Password Url's
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name='forgotpassword/reset_form.html'), name='password_reset'),

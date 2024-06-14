@@ -48,6 +48,11 @@ def yourorder(request):
     }
     return render(request, 'main/yourorder.html', context)
 
+def user_order_track(request, pid):
+    order = Order.objects.get(id=pid)
+    # orderstatus = ORDERSTATUS
+    return render(request, "tracking.html", locals())
+
 def index(request):
     # wishlist = request.user.wishlist.all()
     product = Product.objects.filter(status = 'Publish')
@@ -57,7 +62,6 @@ def index(request):
         "blogpost": blogpost,
         # "wishlist" : wishlist,
     }
-    print(wishlist)
     return render(request, 'main/index.html', context)
 
 def product(request):
@@ -167,6 +171,14 @@ def contactUs(request):
         except:
             return redirect('ContactUs')
     return render(request, 'main/contactus.html')
+
+def aboutUs(request):
+    blogpost = Blogpost.objects.all().order_by('-pub_date')[:2]
+    context = {
+        "blogpost": blogpost,
+        # "wishlist": wishlist
+    }
+    return render(request, 'main/tracker.html', context)
 
 def handleRegister(request):
     if request.method == 'POST':

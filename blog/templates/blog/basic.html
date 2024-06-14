@@ -30,6 +30,12 @@
     <link rel="stylesheet" href="{% static 'assets/css/plugins.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/style.min.css' %}">
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v19.0" nonce="1rdnG8BR"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link href="{% static 'css/progress-bar.css' %}" rel="stylesheet" type="text/css"/>
+</head>
 </head>
 
 <body>
@@ -150,58 +156,12 @@
                         <div class="main-menu position-relative">
                             <ul>
                                 <li><a href="{% url 'Index' %}">Home</a></li>
-                                <li><a href="about.html">About</a></li>
+                                <li><a href="{% url 'AboutUs' %}">About</a></li>
                                 <li><a href="{% url 'Product' %}">Products</a></li>
-                                <li class="dropdown position-static"><a href="#">Shop <i
-                                    class="fa fa-angle-down"></i></a>
-                                    <ul class="mega-menu d-block">
-                                        <li class="d-flex">
-                                            <ul class="d-block">
-                                                <li class="title"><a href="#">Shop Page</a></li>
-                                                <li><a href="shop-3-column.html">Shop 3 Column</a></li>
-                                                <li><a href="shop-4-column.html">Shop 4 Column</a></li>
-                                                <li><a href="shop-left-sidebar.html">Shop Left Sidebar</a></li>
-                                                <li><a href="shop-right-sidebar.html">Shop Right Sidebar</a></li>
-                                                <li><a href="shop-list-left-sidebar.html">Shop List Left Sidebar</a>
-                                                </li>
-                                                <li><a href="shop-list-right-sidebar.html">Shop List Right Sidebar</a>
-                                                </li>
-                                            </ul>
-                                            <ul class="d-block">
-                                                <li class="title"><a href="#">product Details Page</a></li>
-                                                <li><a href="single-product.html">Product Single</a></li>
-                                                <li><a href="single-product-variable.html">Product Variable</a></li>
-                                                <li><a href="single-product-affiliate.html">Product Affiliate</a></li>
-                                                <li><a href="single-product-group.html">Product Group</a></li>
-                                                <li><a href="single-product-tabstyle-2.html">Product Tab 2</a></li>
-                                                <li><a href="single-product-tabstyle-3.html">Product Tab 3</a></li>
-                                            </ul>
-                                            <ul class="d-block">
-                                                <li class="title"><a href="#">Single Product Page</a></li>
-                                                <li><a href="single-product-slider.html">Product Slider</a></li>
-                                                <li><a href="single-product-gallery-left.html">Product Gallery Left</a>
-                                                <li><a href="single-product-gallery-right.html">Product Gallery Right</a> </li>
-                                                <li><a href="single-product-sticky-left.html">Product Sticky Left</a>
-                                                </li>
-                                                <li><a href="single-product-sticky-right.html">Product Sticky Right</a>
-                                                </li>
-                                                <li><a href="cart.html">Cart Page</a></li>
-                                            </ul>
-                                            <ul class="d-block p-0 border-0">
-                                                <li class="title"><a href="#">Single Product Page</a></li>
-                                                <li><a href="checkout.html">Checkout Page</a></li>
-                                                <li><a href="compare.html">Compare Page</a></li>
-                                                <li><a href="wishlist.html">Wishlist Page</a></li>
-                                                <li><a href="my-account.html">Account Page</a></li>
-                                                <li><a href="login.html">Login & Register Page</a></li>
-                                                <li><a href="empty-cart.html">Empty Cart Page</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
                                 <li class=""><a href="/blog/">Blog</i></a>
                                 </li>
                                 <li><a href="{% url 'ContactUs' %}">Contact</a></li>
+                                <li><a href="{% url 'YourOrder' %}">Track Order</a></li>
                             </ul>
                         </div>
                     </div>
@@ -597,15 +557,23 @@
                             <!-- Start single blog -->
                             <div class="col-md-6 col-lg-3 col-sm-6 mb-lm-30px pl-lg-60px">
                                 <div class="single-wedge">
-                                    <h4 class="footer-herading">Services</h4>
+                                    <h4 class="footer-herading">My Account</h4>
                                     <div class="footer-links">
                                         <div class="footer-row">
                                             <ul class="align-items-center">
-                                                <li class="li"><a class="single-link" href="my-account.html">My Account</a></li>
-                                                <li class="li"><a class="single-link" href="contact.html">Contact</a></li>
-                                                <li class="li"><a class="single-link" href="cart.html">Shopping cart</a></li>
-                                                <li class="li"><a class="single-link" href="shop-left-sidebar.html">Shop</a></li>
-                                                <li class="li"><a class="single-link" href="login.html">Services Login</a></li>
+                                                {% if user.is_authenticated %}
+                                                <li class="li"><a class="single-link" href="{% url 'Account' %}">My Account</a></li>
+                                                {% else %}
+                                                <li class="li"><a class="single-link" href="{% url 'HandleLogin' %}">My Account</a></li>
+                                                {% endif %}
+                                                <li class="li"><a class="single-link" href="{% url 'Wishlist' %}">Wishlist</a></li>
+                                                <li class="li"><a class="single-link" href="{% url 'CartDetail' %}">Shopping cart</a></li>
+                                                <li class="li"><a class="single-link" href="{% url 'Product' %}">Shop</a></li>
+                                                {% if user.is_authenticated %}
+                                                <li class="li"><a class="single-link" href="{% url 'Account' %}">Services Login</a></li>
+                                                {% else %}
+                                                <li class="li"><a class="single-link" href="{% url 'HandleLogin' %}">Services Login</a></li>
+                                                {% endif %}
                                             </ul>
                                         </div>
                                     </div>
@@ -615,15 +583,13 @@
                             <!-- Start single blog -->
                             <div class="col-md-6 col-lg-3 col-sm-6 mb-lm-30px pl-lg-40px">
                                 <div class="single-wedge">
-                                    <h4 class="footer-herading">My Account</h4>
+                                    <h4 class="footer-herading">Services</h4>
                                     <div class="footer-links">
                                         <div class="footer-row">
                                             <ul class="align-items-center">
-                                                <li class="li"><a class="single-link" href="my-account.html">My Account</a></li>
-                                                <li class="li"><a class="single-link" href="contact.html">Contact</a></li>
-                                                <li class="li"><a class="single-link" href="cart.html">Shopping cart</a></li>
-                                                <li class="li"><a class="single-link" href="shop-left-sidebar.html">Shop</a></li>
-                                                <li class="li"><a class="single-link" href="login.html">Services Login</a></li>
+                                                <li class="li"><a class="single-link" href="{% url 'ContactUs' %}">Contact Us</a></li>
+                                                <li class="li"><a class="single-link" href="{% url 'AboutUs' %}">About Us</a></li>
+                                                <li class="li"><a class="single-link" href="blog/{% url 'BlogHome' %}">Blogs</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -788,7 +754,7 @@
                 <div class="modal-body text-center">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="pe-7s-close"></i></button>
                     <div class="tt-modal-messages">
-                        <i class="pe-7s-check"></i> Added to cart successfully!
+                        <i class="pe-7s-check"></i> Add to cart!
                     </div>
                     <div class="tt-modal-product">
                         <div class="tt-img">
