@@ -49,9 +49,13 @@ def yourorder(request):
     return render(request, 'main/yourorder.html', context)
 
 def user_order_track(request, pid):
-    order = Order.objects.get(id=pid)
-    # orderstatus = ORDERSTATUS
-    return render(request, "tracking.html", locals())
+    orders = Order.objects.get(id=pid)
+    orderstatus = STATUS
+    context ={
+        "orders": orders,
+        "orderstatus": orderstatus
+    }
+    return render(request, "main/tracker.html", context)
 
 def index(request):
     # wishlist = request.user.wishlist.all()
@@ -178,7 +182,7 @@ def aboutUs(request):
         "blogpost": blogpost,
         # "wishlist": wishlist
     }
-    return render(request, 'main/tracker.html', context)
+    return render(request, 'main/aboutus.html', context)
 
 def handleRegister(request):
     if request.method == 'POST':

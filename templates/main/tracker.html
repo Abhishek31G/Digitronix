@@ -1,10 +1,20 @@
 {% extends 'main/basic.html' %}
-{% block body %}
+
 {% load static %}
+{% block head %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+crossorigin="anonymous" referrerpolicy="no-referrer"/>
+<link href="{% static 'css/progress-bar.css' %}" rel="stylesheet" type="text/css"/>
+
+{% endblock %}
+{% block body %}
+
 
         <!--order-tracking area start-->
         <div class="content-wrapper">
-            <div class="row">
+            <div class="containerrow">
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
@@ -44,7 +54,7 @@
                                     <h4>Track Order</h4>
                                     <ol class="ProgressBar">
                                         {% for i in orderstatus %}
-                                        <li class="ProgressBar-step {% if i.0 <= order.status %}is-complete{% endif %}">
+                                        <li class="ProgressBar-step {% if i.0 <= orders.order_status %}is-complete{% endif %}">
                                             <svg class="ProgressBar-icon">
                                                 <use xlink:href="#checkmark-bold"/>
                                             </svg>
@@ -52,7 +62,6 @@
                                         </li>
                                         {% endfor %}
                                     </ol>
-                                </div>
         
                                 <svg xmlns="http://www.w3.org/2000/svg">
                                     <symbol id="checkmark-bold" viewBox="0 0 24 24">

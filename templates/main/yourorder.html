@@ -3,6 +3,7 @@
 {% block body %}
 {% load static %}
 
+
         <!-- Cart Area Start -->
         <div class="cart-main-area pt-100px pb-100px">
             <div class="container">
@@ -38,7 +39,8 @@
                                                 <input class="cart-plus-minus-box" type="text" name="qtybutton" value="{{i.quantity}}" 
                                                 style="width: 100px; height: 18px; border:none; outline:none; text-align:center;" readonly/>
                                             </td>
-                                            <td class="product-order_status">{{i.order.order_status}}</td>
+                                            {% comment %} <td class="product-order_status">{{i.order.order_status}}</td> {% endcomment %}
+                                            <td><a href="/user-order-track/{{i.order.id}}/" title="Track Status">{{i.order.order_status}}</a></td>
                                             <td class="product-subtotal">{{i.total}}</td>
                                             <td class="product-total">{{i.order.amount}}</td>
                                         </tr>
