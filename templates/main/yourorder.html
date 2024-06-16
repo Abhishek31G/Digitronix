@@ -39,7 +39,6 @@
                                                 <input class="cart-plus-minus-box" type="text" name="qtybutton" value="{{i.quantity}}" 
                                                 style="width: 100px; height: 18px; border:none; outline:none; text-align:center;" readonly/>
                                             </td>
-                                            {% comment %} <td class="product-order_status">{{i.order.order_status}}</td> {% endcomment %}
                                             <td><a href="/user-order-track/{{i.order.id}}/" title="Track Status">{{i.order.get_order_status_display}}</a></td>
                                             <td class="product-subtotal">{{i.total}}</td>
                                             <td class="product-total">{{i.order.amount}}</td>

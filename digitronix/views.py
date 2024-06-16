@@ -29,7 +29,7 @@ def account(request):
     uid = request.session.get('_auth_user_id')
     user = User.objects.get(id=uid)
     orderItem = OrderItem.objects.filter(user=user)
-    order = Order.objects.filter(user=user)
+    order = Order.objects.filter(user=user).order_by('-id')
     orderaddress = Order.objects.filter(user=user).order_by('-date')[:2]
     # Separate code to combine address components and update the order list
 
@@ -44,13 +44,15 @@ def yourorder(request):
     # wishlist = Product.objects.filter(wishlisted = True)
     uid = request.session.get('_auth_user_id')
     user = User.objects.get(id=uid)
-    order = OrderItem.objects.filter(user=user)
+    order = OrderItem.objects.filter(user=user).order_by('-id')
     print(order)
     context = {
         "order": order,
         # "wishlist": wishlist,
     }
     return render(request, 'main/yourorder.html', context)
+
+
 
 def user_order_track(request, pid):
     orders = Order.objects.get(id=pid)
