@@ -108,8 +108,8 @@ class ContactUs(models.Model):
     def __str__(self):
         return self.email + " -------------  Subject: " + self.subject
 
-STATUS = ((1, 'Pending'), (2, 'Order Placed'), (3, 'Dispatch'), (4, 'On The Way'),\
-              (5, 'Delivered'), (6, 'Cancel'), (7, 'Return'))
+STATUS = ((1, 'Pending'), (2, 'Order Processed'), (3, 'Order Shipped'), (4, 'Order En-route'),\
+              (5, 'Order Arrived'))
 class Order(models.Model):
     
     user = models.ForeignKey(User, on_delete=models.CASCADE)

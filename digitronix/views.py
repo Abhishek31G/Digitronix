@@ -1,3 +1,4 @@
+from datetime import timedelta
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from blog.models import Blogpost
@@ -13,6 +14,9 @@ from cart.cart import Cart
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
@@ -51,11 +55,12 @@ def yourorder(request):
 def user_order_track(request, pid):
     orders = Order.objects.get(id=pid)
     orderstatus = STATUS
+    expected_arrival = orders.date + timedelta(days=7)
     context ={
         "orders": orders,
         "orderstatus": orderstatus
     }
-    return render(request, "main/tracker.html", context)
+    return render(request, "main/tracker.html", locals())
 
 def index(request):
     # wishlist = request.user.wishlist.all()
@@ -271,7 +276,7 @@ def checkout(request):
         amount = float(amount_float)
 
     payment = client.order.create({
-        "amount" : amount*100,
+        "amount" : (amount+ 170)*100,
         "currency": "INR",
         "payment_capture": "1"
     })
@@ -327,7 +332,7 @@ def placeorder(request):
         order.save()
 
         for i in cart:
-            a = (float(cart[i]['price']))
+            a = (float(cart[i]['price'])) 
             b = cart[i]['quantity']
 
             total = a * b
@@ -359,6 +364,7 @@ def success(request):
                 break
         user = Order.objects.filter(payment_id = order_id).first()
         user.paid = True
+        user.order_status = 2
         user.save()
     # Clear the cart session data
     request.session['cart'] = {}

@@ -1,0 +1,128 @@
+from fpdf import FPDF
+
+class PDF(FPDF):
+    def header(self):
+        self.set_font('Arial', 'B', 12)
+        self.cell(0, 10, 'Abhishek Gandhewar - Software Engineer', 0, 1, 'C')
+        self.ln(10)
+
+    def footer(self):
+        self.set_y(-15)
+        self.set_font('Arial', 'I', 8)
+        self.cell(0, 10, 'Page %s' % self.page_no(), 0, 0, 'C')
+
+    def chapter_title(self, title):
+        self.set_font('Arial', 'B', 12)
+        self.cell(0, 10, title, 0, 1, 'L')
+        self.ln(4)
+
+    def chapter_body(self, body):
+        self.set_font('Arial', '', 12)
+        self.multi_cell(0, 10, body)
+        self.ln()
+
+    def add_section(self, title, body):
+        self.chapter_title(title)
+        self.chapter_body(body)
+
+pdf = PDF()
+pdf.add_page()
+
+contact_info = """
+Email: abhishekandhewar@gmail.com
+Phone: 7775886269
+Location: Pune, India
+LinkedIn: linkedin.com/in/abhishek-gandhewar-a4a487146
+GitHub: github.com/Abhishek31G
+"""
+
+professional_summary = """
+Seasoned software engineer with over 3 years of progressive growth and hands-on experience in leveraging cutting-edge technologies to craft bespoke business solutions. Adept at transitioning from a novice to a versatile problem solver, consistently demonstrating proactive communication and a passion for continuous learning. Known for embracing change and driving success through innovative solutions and strategic thinking.
+"""
+
+work_experience = """
+Software Engineer
+Tech Mahindra | Pune, India
+July 2019 - November 2022
+- Application Support: Ensured high availability and performance, minimizing downtime by 15%.
+- Team Collaboration: Led cross-functional teams, engaged clients, and managed project priorities.
+- User-Centric Development: Delivered tailored solutions based on user needs, increasing user satisfaction by 20%.
+- Project Contributions:
+  - Survey Analysis Tool: Enhanced system for customer survey analysis, improving feedback collection efficiency by 30%.
+  - Automation Software: Improved IT and network modernization software, reducing manual intervention by 25%.
+- Responsibility: Owned tasks and ensured timely completion.
+- Adaptability: Quickly learned and implemented new technologies.
+
+Associate Software Engineer (Intern)
+Hooterbux Venture Pvt. Ltd. | Pune, India
+November 2018 - April 2019
+- Project Contributions: Managed web applications (Allgurus, BSDT, Auditguru), improving site functionality.
+- Responsibility: Owned tasks and ensured timely completion.
+- Adaptability: Quickly learned and implemented new technologies.
+- Technologies Used: WordPress, JavaScript, HTML, CSS.
+"""
+
+education = """
+M.S. in Computer Science
+Scaler Neovarsity (Woolf)
+October 2023 - Present
+
+B.E. in Information Technology
+GH Raisoni College of Engineering, Nagpur, India
+July 2015 - June 2019
+CGPA: 8.04
+"""
+
+skills = """
+Programming Languages: Python, JavaScript
+Frameworks: Django
+Databases: PostgreSQL, MySQL
+Web Development: HTML, CSS
+Tools: Git, Bootstrap
+"""
+
+projects = """
+Digitronix Online Shopping Web Application
+- Technologies: Django, Python, Jinja Template, JavaScript, HTML, CSS, SQLite/MySQL/PostgreSQL, Git, Bootstrap, Payment Gateway.
+- Overview: Developed a comprehensive e-commerce platform with user authentication, shopping cart, blogs, responsive design, admin panel, and product search & filtering.
+
+Agile Software Development Advisor Application
+- Technologies: Python3, Django, PostgreSQL.
+- Overview: Encouraged agile methodology adoption, enhancing productivity through survey analysis and advisory reports.
+
+TDO-Vodafone UK
+- Technologies/Tools: Blue Planet, Ciena.
+- Overview: Delivered market-leading intelligent automation software and services to modernize IT and network operations.
+"""
+
+achievements = """
+- Awarded AQT Ninja (Automation, Quality & Time).
+- Led runner-up team in Antaragini Cricket League (2017, 2018).
+- Sports Secretary of Antaragini 2018.
+"""
+
+languages = """
+- English, Hindi: Full Professional Proficiency
+- Marathi: Native or Bilingual Proficiency
+"""
+
+interests = """
+- Cricket
+- Movies
+- Books
+- Adventure
+"""
+
+pdf.add_section("Contact Information", contact_info)
+pdf.add_section("Professional Summary", professional_summary)
+pdf.add_section("Work Experience", work_experience)
+pdf.add_section("Education", education)
+pdf.add_section("Skills", skills)
+pdf.add_section("Projects", projects)
+pdf.add_section("Achievements", achievements)
+pdf.add_section("Languages", languages)
+pdf.add_section("Interests", interests)
+
+pdf.output("C:/Users/Abhishek/Downloads.Abhishek_Gandhewar_Resume.pdf")
+
+

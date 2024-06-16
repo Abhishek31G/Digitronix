@@ -5,7 +5,7 @@
 {% load humanize %}
 
 <!-- Contact Area Start -->
-<div class="contact-area">
+<div class="contact-area" style="background-color:#f5f5f5;">
     <div class="container">
         <div class="contact-wrapper">
             <div class="row">
@@ -14,7 +14,7 @@
                         <div class="contact-title mb-30">
                             <h2 class="title">Send A Quest</h2>
                         </div>
-                        <form class="contact-form-style" action="/contactus/" method="post">
+                        <form class="contact-form-style" action="/contactus/" method="post" style="display: flex; justify-content: center;">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-lg-6">
