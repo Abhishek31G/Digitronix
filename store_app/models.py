@@ -127,7 +127,7 @@ class Order(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     payment_id = models.CharField(max_length=255, null=True, blank=True)
     paid = models.BooleanField(default=False, null=True)
-    order_status = models.IntegerField(choices=STATUS, max_length=100, null=True, blank=True, default=1)
+    order_status = models.IntegerField(choices=STATUS, null=True, blank=True, default=1)
 
     def __str__(self):
         return self.user.username
@@ -142,4 +142,4 @@ class OrderItem(models.Model):
     total = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.order.user.username
+        return self.product[:20] + " | " + self.order.user.username + " | " + str(self.order.id)

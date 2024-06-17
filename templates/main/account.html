@@ -35,14 +35,15 @@
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th>Order</th>
+                                                <th>Order No.</th>
+                                                <th>Order Id</th>
                                                 <th>Date</th>
                                                 <th>Payment Status</th>
                                                 <th>Total</th>
-                                                <th>Actions</th>
+                                                <th>More Details</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        {% comment %} <tbody>
                                             {% for ord in order %}
                                             {% for orditem in ord.orderitem_set.all %}
                                             <tr>
@@ -57,6 +58,18 @@
                                                 <td><a href="{% url 'YourOrder' %}" class="view">view</a></td>
                                             </tr>
                                             {% endfor %}
+                                            {% endfor %}
+                                        </tbody> {% endcomment %}
+                                        <tbody>
+                                            {% for order_id, items in grouped_order_items.items %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ items.0.order.id }}</td>
+                                                <td>{{items.0.order.date}}</td>
+                                                <td><span class="success">{% if items.0.order.paid %}Successful{% else %}Failed{% endif %}</span></td>
+                                                <td>₹{{ items.0.order.amount}}</td>
+                                                <td><a href="{% url 'YourOrder' %}" class="view">view</a></td>
+                                            </tr>
                                             {% endfor %}
                                         </tbody>
                                     </table>

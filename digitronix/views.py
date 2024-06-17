@@ -14,9 +14,7 @@ from cart.cart import Cart
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
-import logging
-
-logger = logging.getLogger(__name__)
+from itertools import groupby
 
 
 client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
@@ -25,33 +23,69 @@ client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_S
 def basic(request):
     return render(request, 'main/basic.html')
 
+# def account(request):
+#     uid = request.session.get('_auth_user_id')
+#     user = User.objects.get(id=uid)
+#     orderItem = OrderItem.objects.filter(user=user)
+#     order = Order.objects.filter(user=user).order_by('-id')
+#     orderaddress = Order.objects.filter(user=user).order_by('-date')[:2]
+#     # Separate code to combine address components and update the order list
+
+#     context = {
+#         'orderitem' : orderItem,
+#         'order': order,
+#         "orderaddress":orderaddress,
+#     }
+#     return render(request, 'main/account.html', context)
+
 def account(request):
     uid = request.session.get('_auth_user_id')
     user = User.objects.get(id=uid)
-    orderItem = OrderItem.objects.filter(user=user)
+    orderItem = OrderItem.objects.filter(user=user).order_by('-order_id')
     order = Order.objects.filter(user=user).order_by('-id')
     orderaddress = Order.objects.filter(user=user).order_by('-date')[:2]
     # Separate code to combine address components and update the order list
+
+    grouped_order_items = {}
+    for key, group in groupby(orderItem, lambda x: x.order_id):
+        grouped_order_items[key] = list(group)
 
     context = {
         'orderitem' : orderItem,
         'order': order,
         "orderaddress":orderaddress,
+        "grouped_order_items": grouped_order_items,
     }
     return render(request, 'main/account.html', context)
 
+
+# def yourorder(request):
+#     uid = request.session.get('_auth_user_id')
+#     user = User.objects.get(id=uid)
+#     order = OrderItem.objects.filter(user=user).order_by('-id')
+
+#     context = {
+#         "order": order,
+#         # "wishlist": wishlist,
+#     }
+#     return render(request, 'main/yourorder.html', context)
+
+
+
 def yourorder(request):
-    # wishlist = Product.objects.filter(wishlisted = True)
     uid = request.session.get('_auth_user_id')
     user = User.objects.get(id=uid)
-    order = OrderItem.objects.filter(user=user).order_by('-id')
-    print(order)
+    order_items = OrderItem.objects.filter(user=user).order_by('-order_id')  # Fetch order items in ascending order of order_id
+    grouped_order_items = {}
+    
+    # Group the order items by order ID
+    for key, group in groupby(order_items, lambda x: x.order_id):
+        grouped_order_items[key] = list(group)
+
     context = {
-        "order": order,
-        # "wishlist": wishlist,
+        "grouped_order_items": grouped_order_items,
     }
     return render(request, 'main/yourorder.html', context)
-
 
 
 def user_order_track(request, pid):
