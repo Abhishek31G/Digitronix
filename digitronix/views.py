@@ -15,7 +15,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from itertools import groupby
-
+from django.contrib import messages
 
 client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
 
@@ -232,12 +232,21 @@ def handleRegister(request):
         lastname = request.POST.get('lastname', '')
         email = request.POST.get('email', '')
         pass1 = request.POST.get('pass1', '')
-        pass2 = request.POST.get('pass2', '')
         
-        customer = User.objects.create_user(username, email=email, password=pass1)
+        userName = User.objects.filter(username=username)
+        userEmail = User.objects.filter(email=email)
+
+        if userName.exists():
+            messages.error(request, 'Username is already taken!')
+            return redirect('/register/?tab=register')
+        if userEmail.exists():
+            messages.error(request, 'Email already exists!')
+            return redirect('/register/?tab=register')
+        customer = User.objects.create_user(username=username, email=email, password=pass1)
         customer.first_name = firstname
         customer.last_name = lastname
         customer.save()
+        messages.info(request, 'Account Successfully Created!')
         return redirect('HandleLogin')
     return render(request, "registration/auth.html")
 
@@ -247,10 +256,16 @@ def handleLogin(request):
         username = request.POST.get('username')
         password = request.POST.get('userpassword')
         user = authenticate(request, username=username, password=password)
+
+        if not User.objects.filter(username=username).exists():
+            messages.info(request, 'Username does not exists!')
+            return redirect('HandleLogin')
+
         if user is not None:
             login(request,user)
             return redirect('Index')
         else:
+            messages.info(request, 'Invalid Password!')
             return redirect('HandleLogin')
     return render(request, 'registration/auth.html')
 
