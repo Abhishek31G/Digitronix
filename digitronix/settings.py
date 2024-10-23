@@ -144,9 +144,9 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'abhishekgandhewar@gmail.com'
-EMAIL_HOST_PASSWORD = 'wzpo stzb paae btqe'
+EMAIL_HOST_PASSWORD = ''
 
 # Razorpay Details
 
 RAZORPAY_KEY_ID = 'rzp_test_sqXj7yRLXkRusr'
-RAZORPAY_KEY_SECRET = 'JEXelS68Ennnlmz4WVJqWs3K'
+RAZORPAY_KEY_SECRET = ''
